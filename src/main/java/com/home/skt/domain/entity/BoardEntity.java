@@ -1,5 +1,7 @@
 package com.home.skt.domain.entity;
 
+import com.home.skt.domain.dto.BoardList;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,4 +23,13 @@ public class BoardEntity {
 	private String writer;
 	private String content;
 	private int readCount;
+	
+	public BoardList toDTO() {
+		return BoardList.builder()
+				.no(no)
+				.title(title)
+				.writer(writer)
+				.readCount(readCount)
+				.build();
+	}
 }
