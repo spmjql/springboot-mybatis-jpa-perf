@@ -1,6 +1,5 @@
 package com.home.skt.service.impl;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.PageRequest;
@@ -28,16 +27,16 @@ public class BoardProcess implements BoardService {
 		boardRepository.save(dto.toEntity());
 	}
 
-//	@LogPerf
+	@LogPerf
 	@Override
 	public void findAll(Model model) {
 		pageablebeList(model);
-		listAll(model);
+//		listAll(model);
 	}
 	@LogPerf
 	private void pageablebeList(Model model) {
 		Pageable pageable = PageRequest.of(0, 10);
-		model.addAttribute( boardRepository.findAll(pageable).getContent().stream().map(BoardEntity::toDTO).collect(Collectors.toList()) );
+		model.addAttribute( "pageList",boardRepository.findAll(pageable).getContent().stream().map(BoardEntity::toDTO).collect(Collectors.toList()) );
 	}
 	@LogPerf
 	private void listAll(Model model) {

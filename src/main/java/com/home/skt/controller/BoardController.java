@@ -19,13 +19,13 @@ public class BoardController {
 	private final BoardService service;
 
 	@GetMapping
-	public String board() {
+	public String board(Model model) {
+		service.findAll(model);
 		return "views/board/board";
 	}
 	
 	@GetMapping("/list")
 	public String list(Model model) {
-		service.findAll(model);
 		return "views/board/board";
 	}
 	
