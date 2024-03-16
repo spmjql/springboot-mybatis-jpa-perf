@@ -2,6 +2,7 @@ package com.home.skt.service.impl;
 
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import com.home.skt.domain.dto.PostSave;
 import com.home.skt.domain.entity.BoardEntity;
 import com.home.skt.domain.entity.BoardRepository;
 import com.home.skt.service.BoardService;
+import com.home.skt.utils.PageData;
 
 import lombok.RequiredArgsConstructor;
 
@@ -29,16 +31,21 @@ public class BoardProcess implements BoardService {
 
 	@LogPerf
 	@Override
-	public void findAll(Model model) {
-		pageablebeList(model);
+	public void findAll(Model model, int page) {
+		System.out.println(page);
+		pageablebeList(model, page);
 //		listAll(model);
 	}
-	@LogPerf
-	private void pageablebeList(Model model) {
-		Pageable pageable = PageRequest.of(0, 10);
-		model.addAttribute( "pageList",boardRepository.findAll(pageable).getContent().stream().map(BoardEntity::toDTO).collect(Collectors.toList()) );
+	private void pageablebeList(Model model, int page) {
+		int pageLimit = 10;
+		Pageable pageable = PageRequest.of(page-1, pageLimit);
+		Page<BoardEntity> pageBoard = boardRepository.findAll(pageable);
+		
+		//페이지 리스트
+		model.addAttribute( "pageList",pageBoard.getContent().stream().map(BoardEntity::toDTO).collect(Collectors.toList()) );
+		//페이지번호 리스트
+		model.addAttribute( "pu", PageData.create(page, pageLimit, (int)pageBoard.getTotalElements()) );
 	}
-	@LogPerf
 	private void listAll(Model model) {
 		model.addAttribute("listAll", boardRepository.findAll().stream().map(BoardEntity::toDTO).collect(Collectors.toList()) );
 	}

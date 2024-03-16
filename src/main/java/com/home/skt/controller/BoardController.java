@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.home.skt.domain.dto.PostSave;
 import com.home.skt.service.BoardService;
@@ -19,8 +20,8 @@ public class BoardController {
 	private final BoardService service;
 
 	@GetMapping
-	public String board(Model model) {
-		service.findAll(model);
+	public String board(Model model,@RequestParam(name = "page", defaultValue = "1") int page) {
+		service.findAll(model, page);
 		return "views/board/board";
 	}
 	
