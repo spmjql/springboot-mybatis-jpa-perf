@@ -9,12 +9,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Table(name = "Board")
+@Getter
 @Entity
 public class BoardEntity {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)

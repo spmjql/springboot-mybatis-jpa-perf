@@ -8,6 +8,6 @@ public interface BoardService {
 
 	void save(PostSave dto);
 
-	void findAll(Model model);
+	void findAll(Model model, int page);
 
 }

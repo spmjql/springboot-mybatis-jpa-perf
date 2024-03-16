@@ -25,5 +25,22 @@
 			</tr>
 		</tbody>
 	</table>
+	<div>
+		<a th:if="${pu.from>1}" th:href="|/board?page=${1}|">
+			<button>&lt;&lt;</button>
+		</a>
+		<a th:if="${pu.from>1}" th:href="|/board?page=${pu.from-1}|">
+			<button>&lt;</button>
+		</a>
+		<a class="btn-page" th:each="pno:${#numbers.sequence(pu.from,pu.to)}" th:href="|/board?page=${pno}|" >
+			<button th:text="${pno}"></button>
+		</a>
+		<a th:if="${pu.to < pu.tot}" th:href="|/board?page=${pu.to+1}|">
+			<button>&gt;</button>
+		</a>
+		<a th:if="${pu.to < pu.tot}" th:href="|/board?page=${pu.tot}|">
+			<button>&gt;&gt;</button>
+		</a>
+	</div>
 </body>
 </html>
